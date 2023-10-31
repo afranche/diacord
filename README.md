@@ -10,5 +10,3 @@ Infrastructure-as-Code for managing your discord servers!
 </div>
 
 ## Quickstart
-
-`deno task diacord [args...]`
