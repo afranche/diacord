@@ -5,6 +5,10 @@
 
 ![Buildathon 2023](https://img.shields.io/badge/Discord%20Developers-Buildathon%202023-violet?logo=discord)
 
-
 Infrastructure-as-Code for managing your discord servers!
+
 </div>
+
+## Quickstart
+
+`deno task diacord [args...]`

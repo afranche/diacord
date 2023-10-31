@@ -1,0 +1,7 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/afranche/diacord/specification/diacord-v0.1.schema.json",
+  "title": "Diacord Specifications File Schema",
+  "description": "This schema describes a valid specifications for Diacord to manage a Discord Guild",
+  "type": "object"
+}
