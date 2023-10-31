@@ -1,5 +1,0 @@
-{
-  "tasks": {
-    "diacord": "deno run main.ts"
-  }
-}

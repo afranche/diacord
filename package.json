@@ -1,0 +1,39 @@
+{
+  "name": "diacord",
+  "version": "1.0.0",
+  "description": "Infrastructure-as-code for Discord servers",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc && npm i -g ."
+  },
+  "bin": {
+    "diacord": "./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afranche/diacord.git"
+  },
+  "keywords": [
+    "discord",
+    "iac"
+  ],
+  "author": "Diacord",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afranche/diacord/issues"
+  },
+  "homepage": "https://github.com/afranche/diacord#readme",
+  "devDependencies": {
+    "@types/node": "^20.7.1",
+    "@types/yargs": "^17.0.29",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "fs": "^0.0.1-security",
+    "yargs": "^17.7.2"
+  }
+}
