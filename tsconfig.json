@@ -1,6 +1,7 @@
 {
   "ts-node": { "files": true },
   "compilerOptions": {
+    "alwaysStrict": true,
     "module": "commonjs",
     "target": "es6",
     "outDir": "bin",
