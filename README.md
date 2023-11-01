@@ -9,4 +9,4 @@ Infrastructure-as-Code for managing your discord servers!
 
 </div>
 
-## Quickstart
+## Usage
