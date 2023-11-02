@@ -5,6 +5,7 @@ import { Command } from "../types/Command"
 
 type DestroyArgs = {
   file: string
+  token: string
 }
 
 const f = file(
@@ -24,7 +25,10 @@ export default <Command<DestroyArgs>>{
   },
   handler: async args => {
     const json = await f.read(args)
-    const token = await t.read(args)
-    console.log(json, token)
+    const client = await t.client(args)
+
+    console.log("Client successfully created!") // temporary, to indicate working
+
+    client.destroy()
   }
 }

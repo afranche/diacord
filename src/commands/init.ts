@@ -39,7 +39,7 @@ export default <Command<InitArgs>>{
     // Prevent command running when already configured
     const isConfigured = await configStrategy.isConfigured(filePath)
     if (isConfigured) {
-      console.log("Diacord has already been configured for this project")
+      console.log("Error: Diacord has already been configured for this project")
     }
 
     await configStrategy.initialize(filePath)

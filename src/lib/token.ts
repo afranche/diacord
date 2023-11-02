@@ -1,4 +1,6 @@
 import yargs from "yargs"
+import DiscordClientFactory from "../factories/DiscordClientFactory"
+import { Client } from "discord.js"
 
 /**
  * Helper function to create require a Discord bot token.
@@ -13,9 +15,15 @@ export default function token() {
         description: "Your Discord bot token",
         requiresArg: true
       })
+
+      args.demandOption("token")
     },
     read: async (args: yargs.ArgumentsCamelCase<any>) => {
       return args["token"]
+    },
+    client: async (args: yargs.ArgumentsCamelCase<any>) => {
+      const factory = new DiscordClientFactory()
+      return await factory.createClient(args["token"])
     }
   }
 }
