@@ -4,10 +4,9 @@ export default class DiscordClientFactory {
   public createClient(token: string): Promise<Client<true>> {
     const client = new Client({ intents: [] })
 
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
       client.login(token).catch(() => {
-        console.error("Error: Invalid Discord bot token provided")
-        reject()
+        throw new Error("Invalid Discord bot token provided")
       })
 
       client.on("ready", () => {

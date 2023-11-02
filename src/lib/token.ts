@@ -1,6 +1,8 @@
 import yargs from "yargs"
 import DiscordClientFactory from "../factories/DiscordClientFactory"
-import { Client } from "discord.js"
+import { configDotenv } from "dotenv"
+
+export const BOT_FROM_DOTENV_PREFIX = "env:"
 
 /**
  * Helper function to create require a Discord bot token.
@@ -22,8 +24,27 @@ export default function token() {
       return args["token"]
     },
     client: async (args: yargs.ArgumentsCamelCase<any>) => {
+      const arg = args["token"] as string
+      let token: string
+
+      if (arg.startsWith(BOT_FROM_DOTENV_PREFIX)) {
+        configDotenv()
+
+        const envVariable = arg.replace(BOT_FROM_DOTENV_PREFIX, "")
+        const envToken = process.env[envVariable]
+
+        if (!envToken)
+          throw new Error(
+            `Cannot find Discord bot token stored in environment variable '${envVariable}'`
+          )
+
+        token = envToken
+      } else {
+        token = arg
+      }
+
       const factory = new DiscordClientFactory()
-      return await factory.createClient(args["token"])
+      return await factory.createClient(token)
     }
   }
 }
