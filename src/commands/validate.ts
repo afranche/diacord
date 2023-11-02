@@ -7,7 +7,7 @@ type ApplyArgs = {
 }
 
 const f = file(
-  ["file", "f"],
+  ["configuration", "c"],
   "Path to the configuration file",
   DEFAULT_CONFIG_FILE
 )

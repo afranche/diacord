@@ -29,6 +29,9 @@ export default function file(
       } catch (err) {
         throw new Error(`Unable to find the specified file ${args[parameter]}`)
       }
+    },
+    path: (args: yargs.ArgumentsCamelCase<any>) => {
+      return args[parameter]
     }
   }
 }
