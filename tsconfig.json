@@ -13,7 +13,10 @@
     "typeRoots": ["./src/types", "./node_modules/@types"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": [
+      "node"
+    ]
   },
   "exclude": ["./node_modules"]
 }
