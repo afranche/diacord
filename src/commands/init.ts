@@ -43,7 +43,7 @@ export default <Command<InitArgs>>{
 
     await configStrategy.initialize(filePath)
     console.log(
-      "Diacord has been configured for this project! You can now edit the configuration to build your infrastructure."
+      "\nDiacord has been configured for this project! You can now edit the configuration to build your infrastructure\n"
     )
   }
 }
