@@ -1,10 +1,12 @@
 import { DEFAULT_CONFIG_FILE, DEFAULT_STATE_FILE } from "../constants/constants"
-import file from "../lib/file"
+import messages from "../constants/messages"
+import Json from "../helpers/Json"
+import file from "../lib/oldfile"
 import token from "../lib/token"
+import ConfigStrategyProvider from "../strategies/config/ConfigStrategyProvider"
 import Role, { RoleDataKeys } from "../structures/Role"
 import { Action } from "../types/Action"
 import { Command } from "../types/Command"
-import { Schema } from "../types/Schema"
 import { State } from "../types/State"
 
 type PlanArgs = {
@@ -35,12 +37,16 @@ export default <Command<PlanArgs>>{
     t.apply(args)
   },
   handler: async args => {
-    // Fetch configuration and state
-    const contentString = await f.read(args)
-    const content = JSON.parse(contentString) as Schema
+    const rawConfigType = f.path(args).split(".").pop() ?? ""
+    const configType = ConfigStrategyProvider.parseType(rawConfigType)
+    const configStrategy = ConfigStrategyProvider.getStrategy(configType)
 
-    const stateString = await s.read(args)
-    const state = JSON.parse(stateString) as State
+    // Fetch configuration and state
+    const rawContent = await f.read(args)
+    const content = configStrategy.parse(rawContent)
+
+    const rawState = await s.read(args)
+    const state = Json.deserialize<State>(rawState)
 
     // Setup bot client
     const client = await t.client(args)
@@ -54,7 +60,7 @@ export default <Command<PlanArgs>>{
       contentRoles.some(role => role.id == mapping.id)
     )
 
-    console.log("\nThe following modifications have been planned:\n")
+    console.log(messages.plan.listPlanned)
 
     for (const contentRole of contentRoles) {
       // Search state for matching role
@@ -87,7 +93,7 @@ export default <Command<PlanArgs>>{
       console.log(contentRole.toString(action, differences))
     }
 
-    console.log("To apply these changes, run 'diacord apply'\n")
+    console.log(messages.plan.toApply)
 
     client.destroy()
   }

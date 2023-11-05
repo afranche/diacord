@@ -1,6 +1,8 @@
 import IConfigStrategy from "./IConfigStrategy"
 import fs from "fs/promises"
 import defaultConfig from "../../assets/defaultConfig.json"
+import { Schema } from "../../types/Schema"
+import Json from "../../helpers/Json"
 
 export default class JsonConfigStrategy implements IConfigStrategy {
   public async isConfigured(filePath: string) {
@@ -15,5 +17,9 @@ export default class JsonConfigStrategy implements IConfigStrategy {
       recursive: true
     })
     await fs.appendFile(filePath, JSON.stringify(defaultConfig))
+  }
+
+  public parse(raw: string) {
+    return Json.deserialize<Schema>(raw)
   }
 }

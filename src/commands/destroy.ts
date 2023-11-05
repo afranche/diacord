@@ -1,5 +1,5 @@
 import { DEFAULT_CONFIG_FILE } from "../constants/constants"
-import file from "../lib/file"
+import file from "../lib/oldfile"
 import token from "../lib/token"
 import { Command } from "../types/Command"
 
