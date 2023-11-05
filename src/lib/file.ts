@@ -31,7 +31,7 @@ export default function file(
       }
     },
     path: (args: yargs.ArgumentsCamelCase<any>) => {
-      return args[parameter]
+      return args[parameter] as string
     }
   }
 }
