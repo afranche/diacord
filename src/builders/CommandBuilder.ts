@@ -1,6 +1,7 @@
 import yargs from "yargs"
 import { Command } from "../types/Command"
 import { hideBin } from "yargs/helpers"
+import CommandInvalidError from "../errors/CommandInvalidError"
 
 export default class CommandBuilder {
   private readonly yargs: yargs.Argv<any>
@@ -24,9 +25,9 @@ export default class CommandBuilder {
    * @returns The command builder
    */
   public addCommand<T>(command: Command<T>) {
-    if (!command.name) throw new Error("Command name is required")
-    if (!command.description) throw new Error("Command discription is required")
-    if (!command.handler) throw new Error("Command handler is required")
+    if (!command.name) throw new CommandInvalidError("name")
+    if (!command.description) throw new CommandInvalidError("description")
+    if (!command.handler) throw new CommandInvalidError("handler")
 
     this.yargs.command(
       command.name,

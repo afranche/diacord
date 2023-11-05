@@ -1,6 +1,7 @@
 import yargs from "yargs"
 import DiscordClientFactory from "../factories/DiscordClientFactory"
 import { configDotenv } from "dotenv"
+import EnvironmentVariableNotSetError from "../errors/EnvironmentVariableNotSetError"
 
 export const BOT_FROM_DOTENV_PREFIX = "env:"
 
@@ -33,10 +34,7 @@ export default function token() {
         const envVariable = arg.replace(BOT_FROM_DOTENV_PREFIX, "")
         const envToken = process.env[envVariable]
 
-        if (!envToken)
-          throw new Error(
-            `Cannot find Discord bot token stored in environment variable '${envVariable}'`
-          )
+        if (!envToken) throw new EnvironmentVariableNotSetError(envVariable)
 
         token = envToken
       } else {

@@ -5,6 +5,7 @@ import { IRequireable } from "../decorators/required"
 import yargs from "yargs"
 import { IChoosable } from "../decorators/choices"
 import { Arg } from "../types/Arg"
+import ArgumentDecoratorError from "../errors/ArgumentDecoratorError"
 
 export interface IArgument<T = unknown>
   extends IParameterable,
@@ -46,21 +47,15 @@ export default abstract class BaseArgument<T> implements IArgument<T> {
   public abstract getValue(yargs: yargs.ArgumentsCamelCase<any>): T
 
   public get parameter(): string {
-    throw new Error(
-      "Your argument must use the '@parameter' decorator to set a parameter"
-    )
+    throw new ArgumentDecoratorError("parameter")
   }
 
   public get alias(): string {
-    throw new Error(
-      "Your argument must use the '@alias' decorator to set a alias"
-    )
+    throw new ArgumentDecoratorError("alias")
   }
 
   public get description(): string {
-    throw new Error(
-      "Your argument must use the '@description' decorator to set a description"
-    )
+    throw new ArgumentDecoratorError("description")
   }
 
   public static as<T>(type: Arg) {

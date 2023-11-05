@@ -1,3 +1,4 @@
+import InvalidConfigTypeError from "../../errors/InvalidConfigTypeError"
 import IConfigStrategy from "./IConfigStrategy"
 import JsonConfigStrategy from "./JsonConfigStrategy"
 
@@ -8,7 +9,7 @@ export default class ConfigStrategyProvider {
   public static parseType(raw: string): SupportedConfigType {
     const parsed = supportedConfigTypes.find(t => t === raw)
     if (parsed) return parsed
-    else throw new Error("Invalid configuration type provided")
+    else throw new InvalidConfigTypeError()
   }
 
   public static getStrategy(type: SupportedConfigType): IConfigStrategy {

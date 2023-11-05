@@ -3,6 +3,7 @@ import { IArgumentable } from "../decorators/argument"
 import { IDescriptable } from "../decorators/description"
 import { INameable } from "../decorators/name"
 import BaseArgument, { IArgument } from "./BaseArgument"
+import CommandDecoratorError from "../errors/CommandDecoratorError"
 
 export interface ICommand extends INameable, IDescriptable, IArgumentable {
   handler(yargs: yargs.ArgumentsCamelCase<any>): Promise<void>
@@ -12,13 +13,11 @@ export default abstract class BaseCommand implements ICommand {
   public readonly arguments: Record<string, IArgument> = {}
 
   public get name(): string {
-    throw new Error("Your command must use the '@name' decorator to set a name")
+    throw new CommandDecoratorError("name")
   }
 
   public get description(): string {
-    throw new Error(
-      "Your command must use the '@description' decorator to set a description"
-    )
+    throw new CommandDecoratorError("description")
   }
 
   public builder(yargs: yargs.Argv) {

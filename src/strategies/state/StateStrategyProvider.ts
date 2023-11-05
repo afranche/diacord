@@ -1,3 +1,4 @@
+import InvalidStateTypeError from "../../errors/InvalidStateTypeError"
 import IStateStrategy from "./IStateStrategy"
 import LocalStateStrategy from "./LocalStateStrategy"
 
@@ -8,7 +9,7 @@ export default class StateStrategyProvider {
   public static parseType(raw: string): SupportedStateType {
     const parsed = supportedStateTypes.find(t => t === raw)
     if (parsed) return parsed
-    else throw new Error("Invalid state type provided")
+    else throw new InvalidStateTypeError()
   }
 
   public static getStrategy(type: SupportedStateType): IStateStrategy {

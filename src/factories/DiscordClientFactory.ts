@@ -1,4 +1,5 @@
 import { Client } from "discord.js"
+import InvalidBotTokenError from "../errors/InvalidBotTokenError"
 
 export default class DiscordClientFactory {
   public createClient(token: string): Promise<Client<true>> {
@@ -6,7 +7,7 @@ export default class DiscordClientFactory {
 
     return new Promise(resolve => {
       client.login(token).catch(() => {
-        throw new Error("Invalid Discord bot token provided")
+        throw new InvalidBotTokenError()
       })
 
       client.on("ready", () => {

@@ -1,5 +1,6 @@
 import yargs from "yargs"
 import fs from "fs/promises"
+import FileNotFoundError from "../errors/FileNotFoundError"
 
 /**
  * Helper function to create a file option.
@@ -27,7 +28,7 @@ export default function file(
         const buffer = await fs.readFile(args[parameter])
         return buffer.toString("utf-8")
       } catch (err) {
-        throw new Error(`Unable to find the specified file ${args[parameter]}`)
+        throw new FileNotFoundError(args[parameter])
       }
     },
     path: (args: yargs.ArgumentsCamelCase<any>) => {
