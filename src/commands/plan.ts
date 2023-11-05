@@ -1,4 +1,5 @@
 import { DEFAULT_CONFIG_FILE, DEFAULT_STATE_FILE } from "../constants/constants"
+import messages from "../constants/messages"
 import Json from "../helpers/Json"
 import file from "../lib/oldfile"
 import token from "../lib/token"
@@ -59,7 +60,7 @@ export default <Command<PlanArgs>>{
       contentRoles.some(role => role.id == mapping.id)
     )
 
-    console.log("\nThe following modifications have been planned:\n")
+    console.log(messages.plan.listPlanned)
 
     for (const contentRole of contentRoles) {
       // Search state for matching role
@@ -92,7 +93,7 @@ export default <Command<PlanArgs>>{
       console.log(contentRole.toString(action, differences))
     }
 
-    console.log("To apply these changes, run 'diacord apply'\n")
+    console.log(messages.plan.toApply)
 
     client.destroy()
   }

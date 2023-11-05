@@ -6,6 +6,7 @@ import ConfigStrategyProvider, {
   supportedConfigTypes
 } from "../strategies/config/ConfigStrategyProvider"
 import AlreadyConfiguredError from "../errors/AlreadyConfiguredError"
+import messages from "../constants/messages"
 
 type InitArgs = {
   configuration: string
@@ -42,8 +43,6 @@ export default <Command<InitArgs>>{
     if (isConfigured) throw new AlreadyConfiguredError()
 
     await configStrategy.initialize(filePath)
-    console.log(
-      "\nDiacord has been configured for this project! You can now edit the configuration to build your infrastructure\n"
-    )
+    console.log(messages.init.success)
   }
 }
