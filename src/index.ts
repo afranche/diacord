@@ -1,14 +1,14 @@
 #! /usr/bin/env node
 
-import init from "./commands/init"
 import validate from "./commands/validate"
 import plan from "./commands/plan"
 import apply from "./commands/apply"
 import destroy from "./commands/destroy"
 import CommandBuilder from "./builders/CommandBuilder"
+import InitCommand from "./commands/InitCommand"
 
 CommandBuilder.init(process.argv)
-  .addCommand(init)
+  .add(InitCommand)
   .addCommand(validate)
   .addCommand(plan)
   .addCommand(apply)

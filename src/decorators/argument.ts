@@ -1,7 +1,7 @@
 import { IArgument } from "../lib/BaseArgument"
 
 export interface IArgumentable {
-  arguments: Record<string, IArgument>
+  args: Record<string, IArgument>
 }
 
 export default function argument<
@@ -12,7 +12,7 @@ export default function argument<
     class extends constructor {
       public constructor(...args: any[]) {
         super(...args)
-        this.arguments[label] = new argument()
+        this.args[label] = new argument()
       }
     }
 }

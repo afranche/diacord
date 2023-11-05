@@ -2,6 +2,7 @@ import yargs from "yargs"
 import { Command } from "../types/Command"
 import { hideBin } from "yargs/helpers"
 import CommandInvalidError from "../errors/CommandInvalidError"
+import BaseCommand, { ICommand } from "../lib/BaseCommand"
 
 export default class CommandBuilder {
   private readonly yargs: yargs.Argv<any>
@@ -35,6 +36,17 @@ export default class CommandBuilder {
       command.builder ?? ((() => {}) as yargs.BuilderCallback<T, T>),
       command.handler
     )
+    return this
+  }
+
+  /**
+   * Add a command to the CLI.
+   * @param command The command to add
+   * @returns The command builder
+   */
+  public add(command: new () => ICommand) {
+    const cmd = new command()
+    this.yargs.command(cmd.name, cmd.description, cmd.builder, cmd.handler)
     return this
   }
 

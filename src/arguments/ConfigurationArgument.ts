@@ -10,7 +10,7 @@ import { supportedConfigTypes } from "../strategies/config/ConfigStrategyProvide
 @parameter("configuration", "c")
 @description("Path to the configuration file")
 @defaultValue(DEFAULT_CONFIG_FILE)
-export default class extends FileArgument {}
+export default class ConfigurationArgument extends FileArgument {}
 
 @parameter("type", "t")
 @description("Type of configuration file to create")
