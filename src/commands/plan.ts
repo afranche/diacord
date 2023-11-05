@@ -1,6 +1,6 @@
 import { DEFAULT_CONFIG_FILE, DEFAULT_STATE_FILE } from "../constants/constants"
 import Json from "../helpers/Json"
-import file from "../lib/file"
+import file from "../lib/oldfile"
 import token from "../lib/token"
 import ConfigStrategyProvider from "../strategies/config/ConfigStrategyProvider"
 import Role, { RoleDataKeys } from "../structures/Role"

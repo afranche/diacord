@@ -1,6 +1,6 @@
 import { DEFAULT_CONFIG_FILE } from "../constants/constants"
 import { Command } from "../types/Command"
-import file from "../lib/file"
+import file from "../lib/oldfile"
 import ConfigStrategyProvider, {
   SupportedConfigType,
   supportedConfigTypes
