@@ -1,1 +1,7 @@
-{}
+{
+  "version": "1.0.0",
+  "parameters": {
+    "guildId": "TODO: Put your guild ID here"
+  },
+  "resources": []
+}
