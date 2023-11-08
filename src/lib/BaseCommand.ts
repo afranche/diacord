@@ -3,7 +3,7 @@ import { IArgumentable } from "../decorators/argument"
 import { IDescriptable } from "../decorators/description"
 import { INameable } from "../decorators/name"
 import { IArgument } from "./BaseArgument"
-import CommandDecoratorError from "../errors/CommandDecoratorError"
+import { CommandDecoratorError } from "../errors"
 
 export interface ICommand extends INameable, IDescriptable, IArgumentable {
   args: Record<string, IArgument>

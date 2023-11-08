@@ -5,7 +5,7 @@ import { IRequireable } from "../decorators/required"
 import yargs from "yargs"
 import { IChoosable } from "../decorators/choices"
 import { Arg } from "../types/Arg"
-import ArgumentDecoratorError from "../errors/ArgumentDecoratorError"
+import { ArgumentDecoratorError } from "../errors"
 
 export interface IArgument<T = unknown>
   extends IParameterable,

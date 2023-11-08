@@ -1,4 +1,4 @@
-import InvalidStateTypeError from "../../errors/InvalidStateTypeError"
+import { InvalidStateTypeError } from "../../errors"
 import IStateStrategy from "./IStateStrategy"
 import LocalStateStrategy from "./LocalStateStrategy"
 

@@ -1,7 +1,7 @@
 import yargs from "yargs"
 import DiscordClientFactory from "../factories/DiscordClientFactory"
 import { configDotenv } from "dotenv"
-import EnvironmentVariableNotSetError from "../errors/EnvironmentVariableNotSetError"
+import { EnvironmentVariableNotSetError } from "../errors"
 
 export const BOT_FROM_DOTENV_PREFIX = "env:"
 

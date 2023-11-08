@@ -1,17 +1,13 @@
 import yargs from "yargs"
-import ConfigurationArgument, {
-  ConfigurationTypeArgument
-} from "../arguments/ConfigurationArgument"
-import argument from "../decorators/argument"
-import description from "../decorators/description"
-import name from "../decorators/name"
 import BaseCommand from "../lib/BaseCommand"
 import File from "../lib/File"
 import ConfigStrategyProvider, {
   SupportedConfigType
 } from "../strategies/config/ConfigStrategyProvider"
-import AlreadyConfiguredError from "../errors/AlreadyConfiguredError"
 import messages from "../constants/messages"
+import { argument, description, name } from "../decorators"
+import { AlreadyConfiguredError } from "../errors"
+import { ConfigurationArgument, ConfigurationTypeArgument } from "../arguments"
 
 @name("init")
 @description("Prepare your working directory for other commands")

@@ -1,4 +1,4 @@
-import InvalidConfigTypeError from "../../errors/InvalidConfigTypeError"
+import { InvalidConfigTypeError } from "../../errors"
 import IConfigStrategy from "./IConfigStrategy"
 import JsonConfigStrategy from "./JsonConfigStrategy"
 
