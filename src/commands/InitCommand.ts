@@ -1,6 +1,6 @@
 import yargs from "yargs"
 import BaseCommand from "../lib/BaseCommand"
-import File from "../lib/File"
+import File from "../models/File"
 import ConfigStrategyProvider, {
   SupportedConfigType
 } from "../strategies/config/ConfigStrategyProvider"
@@ -17,15 +17,21 @@ export default class InitCommand extends BaseCommand {
   public override async handler(
     yargs: yargs.ArgumentsCamelCase<any>
   ): Promise<void> {
-    const file = this.arg<File>("config", yargs)
-    const type = this.arg<SupportedConfigType>("type", yargs)
-    const strategy = ConfigStrategyProvider.getStrategy(type)
+    // Determine the file type from the file path, or the type argument
+    const config = this.arg<File>("config", yargs)
+
+    let configType: SupportedConfigType
+    if (config)
+      configType = ConfigStrategyProvider.parseTypeFromFilePath(config.path)
+    else configType = this.arg<SupportedConfigType>("type", yargs)
+
+    const configStrategy = ConfigStrategyProvider.getStrategy(configType)
 
     // Prevent command running when already configured
-    const isConfigured = await strategy.isConfigured(file.path)
+    const isConfigured = await configStrategy.isConfigured(config.path)
     if (isConfigured) throw new AlreadyConfiguredError()
 
-    await strategy.initialize(file.path)
+    await configStrategy.initialize(config.path)
     console.log(messages.init.success)
   }
 }
