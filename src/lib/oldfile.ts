@@ -1,6 +1,6 @@
 import yargs from "yargs"
 import fs from "fs/promises"
-import FileNotFoundError from "../errors/FileNotFoundError"
+import { FileNotFoundError } from "../errors"
 
 /**
  * Helper function to create a file option.

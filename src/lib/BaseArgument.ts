@@ -5,7 +5,7 @@ import { IRequireable } from "../decorators/required"
 import yargs from "yargs"
 import { IChoosable } from "../decorators/choices"
 import { Arg } from "../types/Arg"
-import ArgumentDecoratorError from "../errors/ArgumentDecoratorError"
+import { ArgumentDecoratorError } from "../errors"
 
 export interface IArgument<T = unknown>
   extends IParameterable,
@@ -19,6 +19,10 @@ export interface IArgument<T = unknown>
 }
 
 export default abstract class BaseArgument<T> implements IArgument<T> {
+  protected readonly _parameter?: string
+  protected readonly _alias?: string
+  protected readonly _description?: string
+
   public readonly type: Arg
 
   public readonly required: boolean = false
@@ -47,15 +51,18 @@ export default abstract class BaseArgument<T> implements IArgument<T> {
   public abstract getValue(yargs: yargs.ArgumentsCamelCase<any>): T
 
   public get parameter(): string {
-    throw new ArgumentDecoratorError("parameter")
+    if (!this._parameter) throw new ArgumentDecoratorError("parameter")
+    return this._parameter
   }
 
   public get alias(): string {
-    throw new ArgumentDecoratorError("alias")
+    if (!this._alias) throw new ArgumentDecoratorError("alias")
+    return this._alias
   }
 
   public get description(): string {
-    throw new ArgumentDecoratorError("description")
+    if (!this._description) throw new ArgumentDecoratorError("description")
+    return this._description
   }
 
   public static as<T>(type: Arg) {
