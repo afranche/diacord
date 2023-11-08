@@ -7,8 +7,6 @@ export default function description<
 >(description: string) {
   return (constructor: T) =>
     class extends constructor {
-      public override get description() {
-        return description
-      }
+      protected readonly _description: string = description
     }
 }

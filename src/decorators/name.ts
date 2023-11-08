@@ -7,8 +7,6 @@ export default function name<T extends new (...args: any[]) => INameable>(
 ) {
   return (constructor: T) =>
     class extends constructor {
-      public override get name() {
-        return name
-      }
+      protected readonly _name: string = name
     }
 }

@@ -13,18 +13,25 @@ export interface ICommand extends INameable, IDescriptable, IArgumentable {
 }
 
 export default abstract class BaseCommand implements ICommand {
+  protected readonly _name?: string
+  protected readonly _description?: string
+
   public readonly args: Record<string, IArgument> = {}
+  public readonly required: boolean = false
+  public readonly defaultValue?: string
+  public readonly choices?: string[]
 
   public get name(): string {
-    throw new CommandDecoratorError("name")
+    if (!this._name) throw new CommandDecoratorError("name")
+    return this._name
   }
 
   public get description(): string {
-    throw new CommandDecoratorError("description")
+    if (!this._description) throw new CommandDecoratorError("description")
+    return this._description
   }
 
   public builder(yargs: yargs.Argv) {
-    console.log(this)
     for (const [_, argument] of Object.entries(this.args)) {
       argument.apply(yargs)
     }

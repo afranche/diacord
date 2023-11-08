@@ -8,12 +8,7 @@ export default function parameter<
 >(parameter: string, alias: string) {
   return (constructor: T) =>
     class extends constructor {
-      public override get parameter() {
-        return parameter
-      }
-
-      public override get alias() {
-        return alias
-      }
+      protected readonly _parameter: string = parameter
+      protected readonly _alias: string = alias
     }
 }
