@@ -1,61 +1,48 @@
-import { DEFAULT_CONFIG_FILE, DEFAULT_STATE_FILE } from "../constants/constants"
-import messages from "../constants/messages"
-import Json from "../helpers/Json"
-import file from "../lib/oldfile"
-import token from "../lib/token"
+import yargs from "yargs"
+import BaseCommand from "../lib/BaseCommand"
+import File from "../models/File"
 import ConfigStrategyProvider from "../strategies/config/ConfigStrategyProvider"
+import messages from "../constants/messages"
+import { argument, description, name } from "../decorators"
+import {
+  ClientArgument,
+  ConfigurationArgument,
+  StateArgument
+} from "../arguments"
+import { Client } from "discord.js"
+import StateStrategyProvider from "../strategies/state/StateStrategyProvider"
 import Role, { RoleDataKeys } from "../structures/Role"
 import { Action } from "../types/Action"
-import { Command } from "../types/Command"
-import { State } from "../types/State"
 
-type PlanArgs = {
-  file: string
-  token: string
-}
-
-const f = file(
-  ["configuration", "c"],
-  "Path to the configuration file",
-  DEFAULT_CONFIG_FILE
-)
-
-const s = file(
-  ["state", "s"],
-  "Path to the current state file",
-  DEFAULT_STATE_FILE
-)
-
-const t = token()
-
-export default <Command<PlanArgs>>{
-  name: "plan",
-  description: "Show changes required by the current configuration",
-  builder: args => {
-    f.apply(args)
-    s.apply(args)
-    t.apply(args)
-  },
-  handler: async args => {
-    const rawConfigType = f.path(args).split(".").pop() ?? ""
-    const configType = ConfigStrategyProvider.parseType(rawConfigType)
+@name("plan")
+@description("Show changes required by the current configuration")
+@argument("config", ConfigurationArgument)
+@argument("state", StateArgument)
+@argument("client", ClientArgument)
+export default class PlanCommand extends BaseCommand {
+  public override async handler(
+    yargs: yargs.ArgumentsCamelCase<any>
+  ): Promise<void> {
+    const configFile = this.arg<File>("config", yargs)
+    const configType = ConfigStrategyProvider.parseTypeFromFilePath(
+      configFile.path
+    )
     const configStrategy = ConfigStrategyProvider.getStrategy(configType)
+    const config = configStrategy.parse(await configFile.read())
 
-    // Fetch configuration and state
-    const rawContent = await f.read(args)
-    const content = configStrategy.parse(rawContent)
+    const stateFile = this.arg<File>("state", yargs)
+    const stateStrategy = StateStrategyProvider.getStrategy("local")
+    const state = stateStrategy.parse(await stateFile.read())
 
-    const rawState = await s.read(args)
-    const state = Json.deserialize<State>(rawState)
+    const client = await this.arg<Promise<Client>>("client", yargs)
 
-    // Setup bot client
-    const client = await t.client(args)
+    // TODO: Refactor everything below this line
 
-    const guild = await client.guilds.fetch(content.parameters.guildId)
+    const guild = await client.guilds.fetch(config.parameters.guildId)
 
     // Plan roles
     const existingRoles = await guild.roles.fetch()
-    const contentRoles = content.resources.filter(Role.isRole).map(Role.parse)
+    const contentRoles = config.resources.filter(Role.isRole).map(Role.parse)
     const stateRoles = state.mappings.filter(mapping =>
       contentRoles.some(role => role.id == mapping.id)
     )

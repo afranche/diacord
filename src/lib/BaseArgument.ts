@@ -46,6 +46,8 @@ export default abstract class BaseArgument<T> implements IArgument<T> {
       requiresArg: this.required,
       type: this.type
     })
+
+    if (this.required) yargs.demandOption(this.parameter)
   }
 
   public abstract getValue(yargs: yargs.ArgumentsCamelCase<any>): T

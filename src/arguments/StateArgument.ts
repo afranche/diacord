@@ -1,10 +1,10 @@
-import { DEFAULT_CONFIG_FILE } from "../constants/constants"
+import { DEFAULT_STATE_FILE } from "../constants/constants"
 import defaultValue from "../decorators/defaultValue"
 import description from "../decorators/description"
 import parameter from "../decorators/parameter"
 import FileArgument from "../lib/FileArgument"
 
-@parameter("configuration", "c")
-@description("Path to the configuration file")
-@defaultValue(DEFAULT_CONFIG_FILE)
+@parameter("state", "s")
+@description("Path to the state file")
+@defaultValue(DEFAULT_STATE_FILE)
 export default class ConfigurationArgument extends FileArgument {}

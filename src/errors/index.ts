@@ -1,7 +1,6 @@
 export { default as AlreadyConfiguredError } from "./AlreadyConfiguredError"
 export { default as ArgumentDecoratorError } from "./ArgumentDecoratorError"
 export { default as CommandDecoratorError } from "./CommandDecoratorError"
-export { default as CommandInvalidError } from "./CommandInvalidError"
 export { default as EnvironmentVariableNotSetError } from "./EnvironmentVariableNotSetError"
 export { default as FileNotFoundError } from "./FileNotFoundError"
 export { default as InvalidBotTokenError } from "./InvalidBotTokenError"
